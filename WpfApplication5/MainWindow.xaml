@@ -21,14 +21,12 @@
             </Grid.RowDefinitions>
 
         <Button Content="Remove selected" Height="20" Grid.Row="0" Click="ButtonBase_OnClick"/>
-        <ListBox x:Name="ListBox"
-                 
+            <wpfApplication5:ListBoxScroll x:Name="ListBox"
                                        Grid.Row="1"
                                        ItemsSource="{Binding SourceList}"
                                        SelectedItem="{Binding SelectedItem}"
                                        SelectionMode="Single"
                                        SelectionChanged="ListBox_OnSelectionChanged"
-                                       SizeChanged="ListBox_OnSizeChanged" 
                                        Loaded="ListBox_OnLoaded"/>
         </Grid>
         <Grid Grid.Row="1"
