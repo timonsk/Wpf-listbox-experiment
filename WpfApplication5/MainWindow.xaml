@@ -1,0 +1,50 @@
+﻿<Window x:Class="WpfApplication5.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:wpfApplication5="clr-namespace:WpfApplication5"
+        Title="MainWindow"
+        Width="525"
+        Height="350">
+    <Window.Resources>
+        <wpfApplication5:ValueToVisibilityConverter x:Key="ValueToVisibilityConverter"></wpfApplication5:ValueToVisibilityConverter>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+        <Grid Grid.Row="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+        <Button Content="Remove selected" Height="20" Grid.Row="0" Click="ButtonBase_OnClick"/>
+        <ListBox x:Name="ListBox"
+                 
+                                       Grid.Row="1"
+                                       ItemsSource="{Binding SourceList}"
+                                       SelectedItem="{Binding SelectedItem}"
+                                       SelectionMode="Single"
+                                       SelectionChanged="ListBox_OnSelectionChanged"
+                                       SizeChanged="ListBox_OnSizeChanged" 
+                                       Loaded="ListBox_OnLoaded"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Height="200"
+              Background="Blue">
+            <Grid.Resources>
+                <Style TargetType="Grid">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding ElementName=ListBox, Path=SelectedItem, Converter={StaticResource ValueToVisibilityConverter}}" Value="Visible">
+                            <Setter Property="Visibility" Value="Visible" />
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Grid.Resources>
+            <TextBlock Text="{Binding ElementName=ListBox, Path=SelectedItem}"></TextBlock>
+        </Grid>
+    </Grid>
+</Window>
